@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen>
                 height: 110,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: Image.asset('assets/logo.png', fit: BoxFit.contain),
+                  child: Image.asset('assets/logo.jpeg', fit: BoxFit.contain),
                 ),
               ),
               const SizedBox(height: 28),
