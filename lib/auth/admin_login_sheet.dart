@@ -11,8 +11,8 @@ class AdminLoginSheet extends StatefulWidget {
 }
 
 class _AdminLoginSheetState extends State<AdminLoginSheet> {
-  final _emailCtrl = TextEditingController();
-  final _passCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController(text: 'apforest@gmail.com');
+  final _passCtrl = TextEditingController(text: 'apforest123');
   bool _obscure = true;
   bool _loading = false;
   String? _error;

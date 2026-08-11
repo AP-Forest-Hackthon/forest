@@ -3,19 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import '../app_theme.dart';
 import '../services/auth_service.dart';
 
-class AspirantDashboard extends StatelessWidget {
-  const AspirantDashboard({super.key});
+class TraineeDashboard extends StatelessWidget {
+  const TraineeDashboard({super.key});
 
   static const _exams = [
-    {'name': 'DSC', 'icon': Icons.menu_book_rounded, 'color': Color(0xFF6C63FF)},
-    {'name': 'APPSC', 'icon': Icons.account_balance_rounded, 'color': Color(0xFF00D4AA)},
-    {'name': 'Police', 'icon': Icons.local_police_rounded, 'color': Color(0xFFFF5252)},
-    {'name': 'Railway', 'icon': Icons.train_rounded, 'color': Color(0xFF00B8D9)},
-    {'name': 'Banking', 'icon': Icons.account_balance_wallet_rounded, 'color': Color(0xFFFF7043)},
-    {'name': 'Group 1', 'icon': Icons.looks_one_rounded, 'color': Color(0xFF9C5CF7)},
-    {'name': 'Group 2', 'icon': Icons.looks_two_rounded, 'color': Color(0xFF38ef7d)},
-    {'name': 'Group 3', 'icon': Icons.looks_3_rounded, 'color': Color(0xFFFFB300)},
-    {'name': 'Group 4', 'icon': Icons.looks_4_rounded, 'color': Color(0xFF26C6DA)},
+    {'name': 'Silviculture', 'icon': Icons.nature_people_rounded, 'color': Color(0xFF6C63FF)},
+    {'name': 'Wildlife', 'icon': Icons.pets_rounded, 'color': Color(0xFF00D4AA)},
+    {'name': 'Forest Law', 'icon': Icons.gavel_rounded, 'color': Color(0xFFFF5252)},
+    {'name': 'Botany', 'icon': Icons.local_florist_rounded, 'color': Color(0xFF00B8D9)},
+    {'name': 'Surveying', 'icon': Icons.explore_rounded, 'color': Color(0xFFFF7043)},
+    {'name': 'Soil Science', 'icon': Icons.landscape_rounded, 'color': Color(0xFF9C5CF7)},
+    {'name': 'Mensuration', 'icon': Icons.straighten_rounded, 'color': Color(0xFF38ef7d)},
+    {'name': 'Ecology', 'icon': Icons.eco_rounded, 'color': Color(0xFFFFB300)},
+    {'name': 'Fire Mgmt', 'icon': Icons.local_fire_department_rounded, 'color': Color(0xFF26C6DA)},
   ];
 
   void _logout(BuildContext context) async {
@@ -70,7 +70,7 @@ class AspirantDashboard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Astar Learning', style: GoogleFonts.outfit(
+                          Text('AP Forest Academy', style: GoogleFonts.outfit(
                             color: AppColors.textPrimary, fontSize: 18, fontWeight: FontWeight.w700)),
                           Text('Choose your exam', style: GoogleFonts.outfit(
                               color: AppColors.textSecondary, fontSize: 12)),
@@ -151,7 +151,7 @@ class AspirantDashboard extends StatelessWidget {
                       return GestureDetector(
                         onTap: () => Navigator.pushNamed(
                           context,
-                          '/aspirant-exam-actions',
+                          '/trainee-exam-actions',
                           arguments: name,
                         ),
                         child: Container(

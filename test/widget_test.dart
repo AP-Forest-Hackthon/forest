@@ -6,7 +6,7 @@ import 'package:astarai/main.dart';
 void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const AstarApp());
+    await tester.pumpWidget(const APForestApp());
     expect(find.byType(MaterialApp), findsOneWidget);
   });
 }

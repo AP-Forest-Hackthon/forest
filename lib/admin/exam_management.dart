@@ -17,8 +17,8 @@ class ExamManagementScreen extends StatefulWidget {
 
 class _ExamManagementScreenState extends State<ExamManagementScreen> {
   static const _exams = [
-    'DSC', 'APPSC', 'Police', 'Railway', 'Banking',
-    'Group 1', 'Group 2', 'Group 3', 'Group 4',
+    'Silviculture', 'Wildlife', 'Forest Law', 'Botany', 'Surveying',
+    'Soil Science', 'Mensuration', 'Ecology', 'Fire Mgmt',
   ];
   static const _actions = [
     'Mock Tests', 'Previous Papers', 'Current Affairs',
@@ -29,15 +29,15 @@ class _ExamManagementScreenState extends State<ExamManagementScreen> {
   String? _selectedAction;
 
   static const _examIcons = <String, IconData>{
-    'DSC': Icons.menu_book_rounded,
-    'APPSC': Icons.account_balance_rounded,
-    'Police': Icons.local_police_rounded,
-    'Railway': Icons.train_rounded,
-    'Banking': Icons.account_balance_wallet_rounded,
-    'Group 1': Icons.looks_one_rounded,
-    'Group 2': Icons.looks_two_rounded,
-    'Group 3': Icons.looks_3_rounded,
-    'Group 4': Icons.looks_4_rounded,
+    'Silviculture': Icons.nature_people_rounded,
+    'Wildlife': Icons.pets_rounded,
+    'Forest Law': Icons.gavel_rounded,
+    'Botany': Icons.local_florist_rounded,
+    'Surveying': Icons.explore_rounded,
+    'Soil Science': Icons.landscape_rounded,
+    'Mensuration': Icons.straighten_rounded,
+    'Ecology': Icons.eco_rounded,
+    'Fire Mgmt': Icons.local_fire_department_rounded,
   };
 
   static const _actionIcons = <String, IconData>{

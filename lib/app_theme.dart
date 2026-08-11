@@ -2,46 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Primary brand gradient
-  static const Color primary = Color(0xFF6366F1); // Indigo 500
-  static const Color primaryDark = Color(0xFF4338CA); // Indigo 700
-  static const Color accent = Color(0xFF14B8A6); // Teal 500
-  static const Color accentOrange = Color(0xFFF97316); // Orange 500
+  // Primary brand gradient (Vibrant Emerald Green from reference)
+  static const Color primary = Color(0xFF00A651); // Vibrant Green
+  static const Color primaryDark = Color(0xFF0A2B1A); // Deep Forest Green
+  static const Color accent = Color(0xFFFFC107); // Bright Yellow/Gold
+  static const Color accentOrange = Color(0xFFF57C00); // Orange
 
   // Background
-  static const Color bg = Color(0xFFF8FAFC); // Slate 50
+  static const Color bg = Color(0xFFFCFDF9); // Warm, natural off-white
   static const Color surface = Color(0xFFFFFFFF);
   static const Color card = Color(0xFFFFFFFF);
-  static const Color cardLight = Color(0xFFF1F5F9); // Slate 100
+  static const Color cardLight = Color(0xFFF0F5F2); // Very light green-grey
   
   // Borders
   static const Color cardBorder = Color(0xFFE2E8F0); // Slate 200
 
   // Text
-  static const Color textPrimary = Color(0xFF0F172A); // Slate 900
+  static const Color textPrimary = Color(0xFF0A2B1A); // Very dark green instead of black
   static const Color textSecondary = Color(0xFF475569); // Slate 600
   static const Color textMuted = Color(0xFF94A3B8); // Slate 400
 
   // Status
-  static const Color success = Color(0xFF10B981); // Emerald 500
+  static const Color success = Color(0xFF00A651); // Match primary
   static const Color error = Color(0xFFEF4444); // Red 500
-  static const Color warning = Color(0xFFF59E0B); // Amber 500
+  static const Color warning = Color(0xFFFFC107); // Match accent
 
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xFF818CF8), Color(0xFF4F46E5)], // Indigo 400 to 600
+    colors: [Color(0xFF00C762), Color(0xFF00A651)], // Vibrant green gradient
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient accentGradient = LinearGradient(
-    colors: [Color(0xFF2DD4BF), Color(0xFF0F766E)], // Teal 400 to 700
+    colors: [Color(0xFFFFD54F), Color(0xFFFFC107)], // Yellow gradient
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient bgGradient = LinearGradient(
-    colors: [Color(0xFFF8FAFC), Color(0xFFF1F5F9)], // Slate 50 to 100
+    colors: [Color(0xFFFCFDF9), Color(0xFFF0F5F2)], // Warm off-white to light green-grey
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );

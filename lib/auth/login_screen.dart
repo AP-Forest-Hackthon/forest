@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen>
   bool _loading = false;
   String? _error;
 
-  // Tab 0 = Aspirant, Tab 1 = Student
+  // Tab 0 = Trainee, Tab 1 = Faculty
 
   @override
   void initState() {
@@ -50,8 +50,8 @@ class _LoginScreenState extends State<LoginScreen>
         password: password,
       );
       if (!mounted) return;
-      if (user.role == 'aspirant') {
-        Navigator.pushReplacementNamed(context, '/aspirant-dashboard');
+      if (user.role == 'trainee') {
+        Navigator.pushReplacementNamed(context, '/trainee-dashboard');
       } else {
         Navigator.pushReplacementNamed(context, '/login');
       }
@@ -89,21 +89,23 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Astar Learning',
-                            style: GoogleFonts.outfit(
-                              color: AppColors.textPrimary,
-                              fontSize: 26,
-                              fontWeight: FontWeight.w800,
-                            )),
-                        Text('Your exam success partner',
-                            style: GoogleFonts.outfit(
-                              color: AppColors.textSecondary,
-                              fontSize: 13,
-                            )),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('AP Forest Academy',
+                              style: GoogleFonts.outfit(
+                                color: AppColors.textPrimary,
+                                fontSize: 26,
+                                fontWeight: FontWeight.w800,
+                              )),
+                          Text('Your exam success partner',
+                              style: GoogleFonts.outfit(
+                                color: AppColors.textSecondary,
+                                fontSize: 13,
+                              )),
+                        ],
+                      ),
                     ),
                     // Admin Login button
                     GestureDetector(
@@ -168,8 +170,8 @@ class _LoginScreenState extends State<LoginScreen>
                   labelColor: Colors.white,
                   unselectedLabelColor: AppColors.textSecondary,
                   tabs: const [
-                    Tab(text: 'Aspirant'),
-                    Tab(text: 'Student'),
+                    Tab(text: 'Trainee'),
+                    Tab(text: 'Faculty'),
                   ],
                 ),
               ),

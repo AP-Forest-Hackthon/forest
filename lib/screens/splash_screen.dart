@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../app_theme.dart';
+import 'package:video_player/video_player.dart';
 import '../services/auth_service.dart';
+import '../app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,65 +11,45 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _logoController;
-  late AnimationController _textController;
-  late AnimationController _glowController;
-
-  late Animation<double> _logoScale;
-  late Animation<double> _logoOpacity;
-  late Animation<double> _textOpacity;
-  late Animation<Offset> _textSlide;
-  late Animation<double> _glowAnim;
+class _SplashScreenState extends State<SplashScreen> {
+  late VideoPlayerController _controller;
+  bool _isVideoInitialized = false;
 
   @override
   void initState() {
     super.initState();
-
-    _logoController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 900),
-    );
-    _textController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
-    _glowController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1800),
-    )..repeat(reverse: true);
-
-    _logoScale = Tween<double>(begin: 0.4, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.elasticOut),
-    );
-    _logoOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.easeIn),
-    );
-    _textOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _textController, curve: Curves.easeIn),
-    );
-    _textSlide = Tween<Offset>(
-      begin: const Offset(0, 0.4),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _textController, curve: Curves.easeOut));
-    _glowAnim = Tween<double>(begin: 0.3, end: 1.0).animate(_glowController);
-
-    _logoController.forward().then((_) => _textController.forward());
-
-    Timer(const Duration(seconds: 3), _navigateBasedOnAuth);
+    
+    // Initialize the video player
+    _controller = VideoPlayerController.asset('assets/apforest.mp4')
+      ..initialize().then((_) {
+        setState(() {
+          _isVideoInitialized = true;
+        });
+        _controller.setLooping(false);
+        _controller.play();
+        
+        // Wait for video to finish or route after 4 seconds fallback
+        Timer(const Duration(seconds: 4), _navigateBasedOnAuth);
+      }).catchError((e) {
+        // Fallback if video fails to load
+        Timer(const Duration(seconds: 2), _navigateBasedOnAuth);
+      });
   }
 
-  Future<void> _navigateBasedOnAuth() async {
+  void _navigateBasedOnAuth() async {
     if (!mounted) return;
-    final profile = await AuthService().getCurrentUserProfile();
+    
+    final user = await AuthService().getCurrentUserProfile();
     if (!mounted) return;
-    if (profile == null) {
-      Navigator.pushReplacementNamed(context, '/login');
-    } else if (profile.role == 'admin') {
-      Navigator.pushReplacementNamed(context, '/admin-dashboard');
-    } else if (profile.role == 'aspirant') {
-      Navigator.pushReplacementNamed(context, '/aspirant-dashboard');
+
+    if (user != null) {
+      if (user.role == 'admin') {
+        Navigator.pushReplacementNamed(context, '/admin-dashboard');
+      } else if (user.role == 'trainee') {
+        Navigator.pushReplacementNamed(context, '/trainee-dashboard');
+      } else {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }
@@ -77,88 +57,21 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    _logoController.dispose();
-    _textController.dispose();
-    _glowController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: AppColors.bgGradient),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedBuilder(
-                animation: _glowAnim,
-                builder: (context, child) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary
-                              .withValues(alpha: 0.15 * _glowAnim.value),
-                          blurRadius: 100 * _glowAnim.value,
-                          spreadRadius: 10 * _glowAnim.value,
-                        ),
-                      ],
-                    ),
-                    child: child,
-                  );
-                },
-                child: ScaleTransition(
-                  scale: _logoScale,
-                  child: FadeTransition(
-                    opacity: _logoOpacity,
-                    child: SizedBox(
-                      width: 220,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset('assets/logo.jpeg', fit: BoxFit.contain),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              SlideTransition(
-                position: _textSlide,
-                child: FadeTransition(
-                  opacity: _textOpacity,
-                  child: Column(
-                    children: [
-                      Text(
-                        'Learn • Practice • Excel',
-                        style: GoogleFonts.outfit(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                          letterSpacing: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 80),
-              FadeTransition(
-                opacity: _textOpacity,
-                child: SizedBox(
-                  width: 40,
-                  height: 2,
-                  child: LinearProgressIndicator(
-                    backgroundColor: AppColors.card,
-                    valueColor:
-                        const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      backgroundColor: AppColors.primaryDark,
+      body: Center(
+        child: _isVideoInitialized
+            ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+            : Image.asset('assets/logo.jpeg', width: 200), // Show logo instantly while video buffers
       ),
     );
   }

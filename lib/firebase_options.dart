@@ -20,28 +20,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDg3uVLNlqD5bTRuGnABhS5ZmqZ7jXDEcQ',
-    appId: '1:853219680869:web:placeholder',
-    messagingSenderId: '853219680869',
-    projectId: 'apforest-313a7',
-    authDomain: 'apforest-313a7.firebaseapp.com',
-    storageBucket: 'apforest-313a7.firebasestorage.app',
+    apiKey: 'AIzaSyCweRbyox_X8zaRz1yqEvIkJQO8J-c6ACU',
+    appId: '1:1759901515:web:placeholder',
+    messagingSenderId: '1759901515',
+    projectId: 'apforest-9ba6d',
+    authDomain: 'apforest-9ba6d.firebaseapp.com',
+    storageBucket: 'apforest-9ba6d.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDg3uVLNlqD5bTRuGnABhS5ZmqZ7jXDEcQ',
-    appId: '1:853219680869:android:65d33111f9634885fbdc8c',
-    messagingSenderId: '853219680869',
-    projectId: 'apforest-313a7',
-    storageBucket: 'apforest-313a7.firebasestorage.app',
+    apiKey: 'AIzaSyCweRbyox_X8zaRz1yqEvIkJQO8J-c6ACU',
+    appId: '1:1759901515:android:785b1fc8767368b5aa5ace',
+    messagingSenderId: '1759901515',
+    projectId: 'apforest-9ba6d',
+    storageBucket: 'apforest-9ba6d.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDg3uVLNlqD5bTRuGnABhS5ZmqZ7jXDEcQ',
-    appId: '1:853219680869:ios:placeholder',
-    messagingSenderId: '853219680869',
-    projectId: 'apforest-313a7',
-    storageBucket: 'apforest-313a7.firebasestorage.app',
+    apiKey: 'AIzaSyCweRbyox_X8zaRz1yqEvIkJQO8J-c6ACU',
+    appId: '1:1759901515:ios:placeholder',
+    messagingSenderId: '1759901515',
+    projectId: 'apforest-9ba6d',
+    storageBucket: 'apforest-9ba6d.firebasestorage.app',
     iosBundleId: 'com.example.apforest',
   );
 }

@@ -18,9 +18,9 @@ import 'auth/register_screen.dart';
 import 'admin/admin_dashboard.dart';
 import 'admin/exam_management.dart';
 
-// Aspirant
-import 'aspirant/aspirant_dashboard.dart';
-import 'aspirant/exam_action_screen.dart';
+// Trainee
+import 'trainee/trainee_dashboard.dart';
+import 'trainee/exam_action_screen.dart';
 
 // Upload (shared admin flow)
 import 'screens/upload_screen.dart';
@@ -36,11 +36,11 @@ void main() async {
   } catch (e) {
     debugPrint('Firebase init error: $e');
   }
-  runApp(const AstarApp());
+  runApp(const APForestApp());
 }
 
-class AstarApp extends StatelessWidget {
-  const AstarApp({super.key});
+class APForestApp extends StatelessWidget {
+  const APForestApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +49,14 @@ class AstarApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => QuizProvider()),
       ],
       child: MaterialApp(
-        title: 'Astar Learning',
+        title: 'AP Forest LMS',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         initialRoute: '/',
         onGenerateRoute: (settings) {
           // Handle routes that need arguments
           switch (settings.name) {
-            case '/aspirant-exam-actions':
+            case '/trainee-exam-actions':
               final exam = settings.arguments as String? ?? '';
               return MaterialPageRoute(
                 builder: (_) => ExamActionScreen(exam: exam),
@@ -76,10 +76,10 @@ class AstarApp extends StatelessWidget {
           '/admin-dashboard': (context) => const AdminDashboard(),
           '/exam-management': (context) => const ExamManagementScreen(),
 
-          // Aspirant
-          '/aspirant-dashboard': (context) => const AspirantDashboard(),
+          // Trainee
+          '/trainee-dashboard': (context) => const TraineeDashboard(),
 
-          // Shared quiz flow (admin uploads, aspirant takes)
+          // Shared quiz flow (admin uploads, trainee takes)
           '/upload': (context) => const UploadScreen(),
           '/extracted': (context) => const ExtractedTextScreen(),
           '/quiz': (context) => const QuizScreen(),

@@ -123,14 +123,17 @@ class FirebaseService {
 
   Future<String> addDocument(
       String collection, Map<String, dynamic> data) async {
-    data['createdAt'] = FieldValue.serverTimestamp();
-    final ref = await _firestore.collection(collection).add(data);
+    final writeData = Map<String, dynamic>.from(data);
+    writeData['createdAt'] = FieldValue.serverTimestamp();
+    final ref = await _firestore.collection(collection).add(writeData);
     return ref.id;
   }
 
   Future<void> updateDocument(
-      String collection, String docId, Map<String, dynamic> data) async {
-    await _firestore.collection(collection).doc(docId).update(data);
+      String collection, String id, Map<String, dynamic> data) async {
+    final writeData = Map<String, dynamic>.from(data);
+    writeData['updatedAt'] = FieldValue.serverTimestamp();
+    await _firestore.collection(collection).doc(id).update(writeData);
   }
 
   Future<void> deleteDocument(String collection, String docId) async {

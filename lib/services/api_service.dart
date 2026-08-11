@@ -3,8 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/question_model.dart';
 
 class ApiService {
-  // Configured to use your PC's actual local IPv4 address instead of the emulator's localhost loopback.
-  static const String _baseUrl = 'http://10.80.41.222:8000';
+  static const String _baseUrl = 'https://ap-forest-backend.onrender.com';
 
   /// Send raw OCR text to backend; get back parsed MCQ list.
   Future<List<QuestionModel>> parseQuestions(String rawText) async {

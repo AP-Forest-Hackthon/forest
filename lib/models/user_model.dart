@@ -2,7 +2,7 @@ class UserModel {
   final String uid;
   final String name;
   final String username;
-  final String role; // 'student' | 'aspirant' | 'admin'
+  final String role; // 'faculty' | 'trainee' | 'admin'
 
   const UserModel({
     required this.uid,
@@ -16,7 +16,7 @@ class UserModel {
       uid: uid,
       name: map['name'] as String? ?? '',
       username: map['username'] as String? ?? '',
-      role: map['role'] as String? ?? 'aspirant',
+      role: map['role'] as String? ?? 'trainee',
     );
   }
 

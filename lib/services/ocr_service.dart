@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -20,10 +21,10 @@ class OcrService {
   }
 
   /// Extract text from a PDF file using Syncfusion PDF wrapper (runs in background).
-  Future<String> extractTextFromPdf(File pdfFile) async {
+  Future<String> extractTextFromPdfBytes(Uint8List bytes) async {
     try {
-      // Process in a separate isolate, reading the file there to prevent main thread memory copies
-      return await compute(_extractPdfBackground, pdfFile.path);
+      // Process in a separate isolate
+      return await compute(_extractPdfBackground, bytes);
     } catch (e) {
       throw Exception('PDF extraction failed: $e');
     }
@@ -36,8 +37,7 @@ class OcrService {
 }
 
 // ── Top-level function for Isolate processing ───────────────────────────────
-String _extractPdfBackground(String filePath) {
-  final bytes = File(filePath).readAsBytesSync();
+String _extractPdfBackground(Uint8List bytes) {
   final document = PdfDocument(inputBytes: bytes);
   final extractor = PdfTextExtractor(document);
 

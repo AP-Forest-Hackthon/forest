@@ -14,7 +14,7 @@ class AuthService {
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   // Synthesise email from username for Firebase Auth
-  String _toEmail(String username) => '${username.trim().toLowerCase()}@astar.app';
+  String _toEmail(String username) => '${username.trim().toLowerCase()}@apforest.app';
 
   // ── Register (Student / Aspirant) ─────────────────────────────────────────
 
@@ -96,9 +96,9 @@ class AuthService {
     final uid = currentUser?.uid;
     if (uid == null) return null;
 
-    // Admin check — any email not ending in @astar.app is treated as an Admin
+    // Admin check — any email not ending in @apforest.app is treated as an Admin
     final email = currentUser!.email ?? '';
-    if (!email.endsWith('@astar.app')) {
+    if (!email.endsWith('@apforest.app')) {
       return UserModel(
           uid: uid,
           name: 'Admin',

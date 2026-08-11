@@ -16,7 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passCtrl = TextEditingController();
   final _confirmCtrl = TextEditingController();
 
-  String _role = 'aspirant';
+  String _role = 'trainee';
   bool _obscurePass = true;
   bool _obscureConfirm = true;
   bool _loading = false;
@@ -87,8 +87,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         role: _role,
       );
       if (!mounted) return;
-      if (user.role == 'aspirant') {
-        Navigator.pushReplacementNamed(context, '/aspirant-dashboard');
+      if (user.role == 'trainee') {
+        Navigator.pushReplacementNamed(context, '/trainee-dashboard');
       } else {
         Navigator.pushReplacementNamed(context, '/login');
       }
@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 8),
-                      Text('Join Astar Learning',
+                      Text('Join AP Forest Academy',
                           style: GoogleFonts.outfit(
                             color: AppColors.textPrimary,
                             fontSize: 28,
@@ -273,19 +273,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Row(
                         children: [
                           _RoleChip(
-                            label: 'Aspirant',
+                            label: 'Trainee',
                             icon: Icons.emoji_events_rounded,
-                            selected: _role == 'aspirant',
+                            selected: _role == 'trainee',
                             gradient: AppColors.primaryGradient,
-                            onTap: () => setState(() => _role = 'aspirant'),
+                            onTap: () => setState(() => _role = 'trainee'),
                           ),
                           const SizedBox(width: 12),
                           _RoleChip(
-                            label: 'Student',
+                            label: 'Faculty',
                             icon: Icons.school_rounded,
-                            selected: _role == 'student',
+                            selected: _role == 'faculty',
                             gradient: AppColors.accentGradient,
-                            onTap: () => setState(() => _role = 'student'),
+                            onTap: () => setState(() => _role = 'faculty'),
                           ),
                         ],
                       ),

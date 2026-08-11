@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
@@ -20,7 +22,8 @@ class _UploadScreenState extends State<UploadScreen> {
   final ImagePicker _imagePicker = ImagePicker();
 
   String? _selectedFileName;
-  File? _selectedImageFile;
+  File? _selectedImageFile; // Only used for ML Kit (mobile)
+  Uint8List? _selectedFileBytes; // Used for Web and PDF
   bool _isProcessing = false;
   String? _errorMessage;
 
@@ -39,11 +42,19 @@ class _UploadScreenState extends State<UploadScreen> {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
+      withData: true,
     );
-    if (result != null && result.files.single.path != null) {
+    if (result != null && result.files.isNotEmpty) {
       setState(() {
         _selectedFileName = result.files.single.name;
-        _selectedImageFile = File(result.files.single.path!);
+        // On web, accessing .path throws an exception! We must use kIsWeb
+        if (kIsWeb) {
+          _selectedImageFile = null;
+          _selectedFileBytes = result.files.single.bytes;
+        } else {
+          _selectedImageFile = File(result.files.single.path!);
+          _selectedFileBytes = _selectedImageFile!.readAsBytesSync();
+        }
       });
     }
   }
@@ -56,18 +67,20 @@ class _UploadScreenState extends State<UploadScreen> {
       imageQuality: 90,
     );
     if (picked != null) {
+      final bytes = await picked.readAsBytes();
       setState(() {
         _selectedFileName = picked.name;
         _selectedImageFile = File(picked.path);
+        _selectedFileBytes = bytes;
       });
     }
   }
 
   // ---- Run OCR ----
   Future<void> _runOcr() async {
-    if (_selectedImageFile == null) {
+    if (_selectedImageFile == null && _selectedFileBytes == null) {
       setState(
-          () => _errorMessage = 'Please select an image first to run OCR.');
+          () => _errorMessage = 'Please select an image or PDF first to run OCR.');
       return;
     }
 
@@ -79,7 +92,7 @@ class _UploadScreenState extends State<UploadScreen> {
     try {
       String text;
       if (_selectedFileName!.toLowerCase().endsWith('.pdf')) {
-        text = await _ocrService.extractTextFromPdf(_selectedImageFile!);
+        text = await _ocrService.extractTextFromPdfBytes(_selectedFileBytes!);
       } else {
         text = await _ocrService.extractTextFromImage(_selectedImageFile!);
       }
@@ -264,7 +277,7 @@ class _UploadScreenState extends State<UploadScreen> {
               icon: Icons.document_scanner_rounded,
               gradient: AppColors.primaryGradient,
               isLoading: _isProcessing,
-              onTap: _selectedImageFile != null ? _runOcr : null,
+              onTap: (_selectedImageFile != null || _selectedFileBytes != null) ? _runOcr : null,
             ),
 
             const SizedBox(height: 12),
